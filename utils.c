@@ -1,5 +1,5 @@
 /*
-** Copyright 2012, The CyanogenMod Project
+** Copyright 2012, The MoKee OpenSource Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -101,8 +101,8 @@ defval:
  * Fast version of get_property which purpose is to check
  * whether the property with given prefix exists.
  *
- * Assume nobody is stupid enough to put a propery with prefix ro.cm.version
- * in his build.prop on a non-CM ROM and comment it out.
+ * Assume nobody is stupid enough to put a propery with prefix ro.mk.version
+ * in his build.prop on a non-MK ROM and comment it out.
  */
 int check_property(const char *data, const char *prefix)
 {
