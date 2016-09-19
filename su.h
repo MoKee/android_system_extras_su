@@ -23,11 +23,11 @@
 #endif
 #define LOG_TAG "su"
 
-// CyanogenMod-specific behavior
-#define CM_ROOT_ACCESS_DISABLED      0
-#define CM_ROOT_ACCESS_APPS_ONLY     1
-#define CM_ROOT_ACCESS_ADB_ONLY      2
-#define CM_ROOT_ACCESS_APPS_AND_ADB  3
+// MoKee-specific behavior
+#define MK_ROOT_ACCESS_DISABLED      0
+#define MK_ROOT_ACCESS_APPS_ONLY     1
+#define MK_ROOT_ACCESS_ADB_ONLY      2
+#define MK_ROOT_ACCESS_APPS_AND_ADB  3
 
 #define DAEMON_SOCKET_PATH "/dev/socket/su-daemon/"
 

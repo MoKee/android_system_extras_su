@@ -279,7 +279,7 @@ static __attribute__ ((noreturn)) void allow(struct su_context *ctx, const char 
 }
 
 /*
- * CyanogenMod-specific behavior
+ * MoKee-specific behavior
  *
  * we can't simply use the property service, since we aren't launched from init
  * and can't trust the location of the property workspace.
@@ -292,7 +292,7 @@ int access_disabled(const struct su_initiator *from) {
     size_t len;
 
     data = read_file("/system/build.prop");
-    if (check_property(data, "ro.cm.version")) {
+    if (check_property(data, "ro.mk.version")) {
         get_property(data, build_type, "ro.build.type", "");
         free(data);
 
@@ -319,7 +319,7 @@ int access_disabled(const struct su_initiator *from) {
         /* enforce persist.sys.root_access on non-eng builds for apps */
         if (strcmp("eng", build_type) != 0 &&
                 from->uid != AID_SHELL && from->uid != AID_ROOT &&
-                (atoi(enabled) & CM_ROOT_ACCESS_APPS_ONLY) != CM_ROOT_ACCESS_APPS_ONLY ) {
+                (atoi(enabled) & MK_ROOT_ACCESS_APPS_ONLY) != MK_ROOT_ACCESS_APPS_ONLY ) {
             ALOGE("Apps root access is disabled by system setting - "
                  "enable it under settings -> developer options");
             return 1;
@@ -327,7 +327,7 @@ int access_disabled(const struct su_initiator *from) {
 
         /* disallow su in a shell if appropriate */
         if (from->uid == AID_SHELL &&
-                (atoi(enabled) & CM_ROOT_ACCESS_ADB_ONLY) != CM_ROOT_ACCESS_ADB_ONLY ) {
+                (atoi(enabled) & MK_ROOT_ACCESS_ADB_ONLY) != MK_ROOT_ACCESS_ADB_ONLY ) {
             ALOGE("Shell root access is disabled by a system setting - "
                  "enable it under settings -> developer options");
             return 1;
