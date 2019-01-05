@@ -2,6 +2,7 @@
 ** Copyright 2010, Adam Shanks (@ChainsDD)
 ** Copyright 2008, Zinx Verituse (@zinxv)
 ** Copyright 2017-2018, The LineageOS Project
+** Copyright 2017-2018, The MoKee Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -266,14 +267,14 @@ static __attribute__((noreturn)) void allow(struct su_context* ctx, const char* 
 }
 
 int access_disabled(const struct su_initiator* from) {
-    char lineage_version[PROPERTY_VALUE_MAX];
+    char mk_version[PROPERTY_VALUE_MAX];
     char build_type[PROPERTY_VALUE_MAX];
     int enabled;
 
-    /* Only allow su on Lineage builds */
-    property_get("ro.lineage.version", lineage_version, "");
-    if (!strcmp(lineage_version, "")) {
-        ALOGE("Root access disabled on Non-Lineage builds");
+    /* Only allow su on MoKee builds */
+    property_get("ro.mk.version", mk_version, "");
+    if (!strcmp(mk_version, "")) {
+        ALOGE("Root access disabled on Non-MoKee builds");
         return 1;
     }
 
@@ -287,7 +288,7 @@ int access_disabled(const struct su_initiator* from) {
     enabled = property_get_int32("persist.sys.root_access", 2);
     property_get("ro.build.type", build_type, "");
     if (strcmp("eng", build_type) != 0 && from->uid != AID_SHELL && from->uid != AID_ROOT &&
-        (enabled & LINEAGE_ROOT_ACCESS_APPS_ONLY) != LINEAGE_ROOT_ACCESS_APPS_ONLY) {
+        (enabled & MK_ROOT_ACCESS_APPS_ONLY) != MK_ROOT_ACCESS_APPS_ONLY) {
         ALOGE(
             "Apps root access is disabled by system setting - "
             "enable it under settings -> developer options");
@@ -296,7 +297,7 @@ int access_disabled(const struct su_initiator* from) {
 
     /* disallow su in a shell if appropriate */
     if (from->uid == AID_SHELL &&
-        (enabled & LINEAGE_ROOT_ACCESS_ADB_ONLY) != LINEAGE_ROOT_ACCESS_ADB_ONLY) {
+        (enabled & MK_ROOT_ACCESS_ADB_ONLY) != MK_ROOT_ACCESS_ADB_ONLY) {
         ALOGE(
             "Shell root access is disabled by a system setting - "
             "enable it under settings -> developer options");
