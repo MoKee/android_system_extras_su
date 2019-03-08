@@ -476,6 +476,11 @@ int su_main(int argc, char* argv[], int need_client) {
 
     ALOGE("SU from: %s", ctx.from.name);
 
+    if (ctx.from.uid == AID_ROOT) {
+        ALOGD("Allowing root.");
+        allow(&ctx, NULL);
+    }
+
     // check if superuser is disabled completely
     if (access_disabled(&ctx.from)) {
         ALOGD("access_disabled");
